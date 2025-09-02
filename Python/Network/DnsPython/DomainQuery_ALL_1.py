@@ -55,6 +55,13 @@ def clean_domain(domain):
     return domain
 
 def query_dns_record(domain, record_type, tcp=False): # 也可以直接调用 query_dns_record 查询
+    """
+    查询域名的DNS记录
+    :param domain: 域名
+    :param record_type: DNS记录类型
+    :param tcp: 是否使用TCP查询
+    :return: 查询结果
+    """
     domain = clean_domain(domain)  # 清理域名
     try:
         back_value = []
@@ -76,6 +83,11 @@ def query_dns_record(domain, record_type, tcp=False): # 也可以直接调用 qu
         return False
 
 def whois_query(domain):
+    """
+    查询域名的Whois信息
+    :param domain: 域名
+    :return: Whois信息
+    """
     try:
         # 尝试找到Whois服务器，先从最长的子域开始查询
         whois_server = get_whois_server(domain)

@@ -6,7 +6,12 @@ import socket
 import os
 
 def tcp_listens(host, port, max=5):
-    """创建一个服务端socket，并绑定到指定的host和port上，开始监听连接请求。
+    """
+    创建一个服务端socket，并绑定到指定的host和port上，开始监听连接请求。
+    :param host: 主机名或IP地址
+    :param port: 端口号
+    :param max: 最大连接数
+    :return: 服务端socket
     """
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((host, port))
@@ -14,19 +19,30 @@ def tcp_listens(host, port, max=5):
     return s
 
 def tcp_connect(host, port):
-    """创建一个客户端socket，并连接到指定的host和port。
+    """
+    创建一个客户端socket，并连接到指定的host和port。
+    :param host: 主机名或IP地址
+    :param port: 端口号
+    :return: 客户端socket
     """
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))
     return s
 
 def tcp_send(s, content):  # 发送信息，并编码
-    """发送信息
+    """
+    发送信息
+    :param s: 套接字传递
+    :param content: 要发送的内容
     """
     s.send(content.encode(encoding='utf-8'))
 
 def tcp_receive(s, buffer_size=1024):  # 接收信息，并解码
-    """接收信息
+    """
+    接收信息
+    :param s: 套接字传递
+    :param buffer_size: 接收缓冲区大小
+    :return: 接收的内容
     """
     return s.recv(buffer_size).decode(encoding="utf-8")
 
@@ -63,24 +79,41 @@ def tcp_receive_file(s, save_path):
             received_size += len(data)
 
 def close(s):  # 关闭连接
+    """
+    关闭连接
+    :param s: 套接字传递
+    """
     s.close()
 
 # UDP支持
 
 def udp_listen(host, port):
-    """创建一个UDP服务器socket，并绑定到指定的host和port上。
+    """
+    创建一个UDP服务器socket，并绑定到指定的host和port上。
+    :param host: 主机名或IP地址
+    :param port: 端口号
+    :return: UDP服务器socket
     """
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind((host, port))
     return s
 
 def udp_send(s, host, port, content):
-    """通过UDP发送信息。
+    """
+    通过UDP发送信息。
+    :param s: 套接字传递
+    :param host: 主机名或IP地址
+    :param port: 端口号
+    :param content: 要发送的内容
     """
     s.sendto(content.encode(), (host, port))
 
 def udp_receive(s, buffer_size=1024):
-    """通过UDP接收信息。
+    """
+    通过UDP接收信息。
+    :param s: 套接字传递
+    :param buffer_size: 接收缓冲区大小
+    :return: 接收的内容和地址
     """
     data, addr = s.recvfrom(buffer_size)
     return data.decode(), addr
