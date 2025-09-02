@@ -1,3 +1,7 @@
+"""
+By:liang-work
+基于socket库进行TCP或UDP链接。
+"""
 import socket
 import os
 
